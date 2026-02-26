@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Project 1: Video Game Sales — Haoran Chen</title>
+<title>Project 1: Video Game Sales - Haoran Chen</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -75,7 +75,7 @@
 </nav>
 
 <div class="hero"><div class="hero-content">
-  <span class="tag">DTSC 2301 — Project 1</span>
+  <span class="tag">DTSC 2301 - Project 1</span>
   <h1>Video Game Sales Analysis</h1>
   <p>Looking at how game sales break down by genre and region, and whether genre popularity has shifted over the years.</p>
 </div></div>
@@ -83,7 +83,7 @@
 <div class="container">
 
 <section id="problem">
-  <div class="section-number">01 — Problem Definition</div>
+  <div class="section-number">01 - Problem Definition</div>
   <h2>Introduce the Problem</h2>
   <p>For this project I decided to look at video game sales data. I play a lot of games so I thought it would be cool to actually dig into the numbers behind the industry instead of just picking a random topic I have no connection to. The main thing I wanted to figure out was how sales break down by genre in different parts of the world, and whether certain genres have gotten more or less popular over the years.</p>
   <div class="highlight-box"><strong>My Research Question</strong>How do video game sales compare across genres and regions (North America, Europe, Japan), and has genre popularity changed over time?</div>
@@ -92,13 +92,13 @@
 </section>
 
 <section id="data">
-  <div class="section-number">02 — Data Description</div>
+  <div class="section-number">02 - Data Description</div>
   <h2>About the Data</h2>
   <p>I got my dataset from Kaggle, its called "Video Game Sales" and it was originally scraped from a site called VGChartz that tracks game sales. One thing to note right away is that these are estimates not official numbers from the publishers themselves. Ill come back to that later in the limitations part.</p>
   <div class="data-grid">
     <div class="data-card"><div class="label">Total Records</div><div class="value">~16,500</div></div>
     <div class="data-card"><div class="label">Columns</div><div class="value">11</div></div>
-    <div class="data-card"><div class="label">Time Span</div><div class="value">1980–2020</div></div>
+    <div class="data-card"><div class="label">Time Span</div><div class="value">1980-2020</div></div>
     <div class="data-card"><div class="label">Source</div><div class="value">Kaggle / VGChartz</div></div>
   </div>
   <p>Each row is one video game. The columns I cared about the most were Genre (like Action, Sports, RPG, Shooter, etc.), Year (when the game came out), and the sales columns which are broken up by region: NA_Sales, EU_Sales, JP_Sales, Other_Sales, and Global_Sales. All the sales numbers are in millions of units. Theres also columns for the game name, what platform it was on, and who published it.</p>
@@ -108,24 +108,24 @@
     <span style="color:var(--heading)">Year</span> - release year &nbsp;|&nbsp;
     <span style="color:var(--heading)">Genre</span> - category like Action, Sports, RPG &nbsp;|&nbsp;
     <span style="color:var(--heading)">Publisher</span> - who published it &nbsp;|&nbsp;
-    <span style="color:var(--heading)">NA_Sales, EU_Sales, JP_Sales, Other_Sales, Global_Sales</span> - sales in millions per region (the underscores are just how column names are written in the dataset since spaces arent allowed in column names)
+    <span style="color:var(--heading)">NA_Sales, EU_Sales, JP_Sales, Other_Sales, Global_Sales</span> - sales in millions per region
   </div>
   <p>Something worth mentioning is this dataset only has games that sold over 100,000 copies. So smaller indie titles arent in here at all. Its also mostly physical sales so digital downloads and free to play games like Fortnite arent really represented. That becomes important later when looking at trends after 2010 or so.</p>
 </section>
 
 <section id="cleaning">
-  <div class="section-number">03 — Data Cleaning &amp; Preparation</div>
+  <div class="section-number">03 - Data Cleaning</div>
   <h2>Cleaning the Data</h2>
   <p>The data wasnt super messy but there were some things I had to fix before I could start making charts.</p>
   <div class="cleaning-step"><div class="step-num">1</div><div class="step-content"><strong>Removed rows where Year was missing (~270 rows)</strong><br>I need year for my time trends so I cant really keep rows without it. Losing 270 out of 16,000 rows isnt going to change my results much so I just dropped them.</div></div>
   <div class="cleaning-step"><div class="step-num">2</div><div class="step-content"><strong>Changed Year from a decimal to a whole number</strong><br>For some reason Year was stored as floats like 2006.0 which looked weird. I just converted it to integers.</div></div>
-  <div class="cleaning-step"><div class="step-num">3</div><div class="step-content"><strong>Filtered to only 1990–2016</strong><br>When I looked at the year distribution there were barely any games tracked before 1990 and the data gets really incomplete after 2016. So keeping that range gave me the most reliable window.</div></div>
+  <div class="cleaning-step"><div class="step-num">3</div><div class="step-content"><strong>Filtered to only 1990-2016</strong><br>When I looked at the year distribution there were barely any games tracked before 1990 and the data gets really incomplete after 2016. So keeping that range gave me the most reliable window.</div></div>
   <div class="cleaning-step"><div class="step-num">4</div><div class="step-content"><strong>Dropped a couple rows with no publisher</strong><br>Like 2 rows had no publisher listed. Not a big deal at all, just cleaned them out.</div></div>
-  <p>After all that I had around 15,000 rows with 12 genres. Thats plenty to work with for this kind of analysis.</p>
+  <p>After all that I had around 15,000 rows with 12 genres. Thats plenty to work with.</p>
 </section>
 
 <section id="viz">
-  <div class="section-number">04 — Data Understanding &amp; Visualization</div>
+  <div class="section-number">04 - Visualizations</div>
   <h2>What I Found</h2>
   <p>I made four charts. I tried to make each one answer a specific part of my question instead of just throwing charts in for no reason.</p>
   <div class="viz-block"><h3>Chart 1: Total Global Sales by Genre</h3><p class="why">Started with this because I wanted a big picture view first. A bar chart works well for comparing categories.</p><img src="images/viz1_genre_sales.png" alt="Bar chart showing total global sales by genre."><div class="finding">Action is clearly the biggest seller by a lot. Sports and Shooter come in second and third. Puzzle and Strategy are at the bottom which makes sense since those tend to be more niche.</div></div>
@@ -135,121 +135,70 @@
 </section>
 
 <section id="story">
-  <div class="section-number">05 — Storytelling &amp; Interpretation</div>
+  <div class="section-number">05 - Interpretation</div>
   <h2>Putting It Together</h2>
   <p>Looking at everything together the main takeaway is that the video game market isnt the same everywhere. Action and Sports do well across the board but once you start comparing regions you see some real differences showing up.</p>
   <p>The Japan RPG thing is probably the most interesting finding. Its one of those things people in the gaming community always talk about but now I can actually point to the data and say yeah its real. Japan spends a way bigger proportion of their gaming budget on RPGs than North America or Europe does. On the flip side Shooter games are really an NA and EU thing.</p>
   <p>The time trends also tell a story but you have to be careful about what story. If you just look at the chart it looks like gaming peaked in 2008 and has been dying since then. But thats not whats actually happening. The gaming industry has actually been growing a ton, its just that the growth is happening in digital sales and mobile and stuff thats not in this dataset.</p>
   <div class="highlight-box yellow"><strong>What would be misleading here?</strong>If someone looked at the post-2010 decline and said "gaming is dying" that would be way off. The industry has been growing, its just that the growth is in digital sales and mobile which this dataset cant see. You have to think about what your data actually represents not just what the chart looks like.</div>
-  <p>I think thats honestly one of the bigger things I took away from this project. You have to pay attention to what the data actually represents and not just take the charts at face value.</p>
 </section>
 
 <section id="limits">
-  <div class="section-number">06 — Limitations, Ethics &amp; Reflection</div>
+  <div class="section-number">06 - Limitations</div>
   <h2>Limitations and Reflection</h2>
   <p>Theres a few big limitations. The biggest one is the missing digital sales. As gaming moved more and more to digital distribution especially after 2010 this dataset captures less and less of whats actually going on. So my time trend analysis has that big caveat attached to it.</p>
   <p>The data also comes from VGChartz which uses estimates not official numbers from publishers. For looking at broad patterns and comparisons I think the estimates are good enough but I wouldnt trust the exact sales figure for any individual game to be perfectly accurate.</p>
-  <p>The Other_Sales column is kind of frustrating too because it combines a ton of different countries into one number. I cant say anything specific about gaming preferences in South America or Southeast Asia because its all lumped together.</p>
-  <p>What surprised me was how clear the Japan RPG preference showed up in the heatmap. I expected to see it but not that strongly. I was also surprised by how sharp the drop off was after 2008 across basically every genre. That made me think more carefully about what this data is actually measuring versus what I assumed it was measuring.</p>
-  <p>If I had more time I would want to find a dataset that includes digital sales to see if the trends look different. I would also want to break things down by platform to see if theres differences between Nintendo and PlayStation and Xbox in terms of what genres sell.</p>
+  <p>What surprised me was how clear the Japan RPG preference showed up in the heatmap. I expected to see it but not that strongly. I was also surprised by how sharp the drop off was after 2008 across basically every genre.</p>
+  <p>If I had more time I would want to find a dataset that includes digital sales to see if the trends look different. I would also want to break things down by platform to see if theres differences between Nintendo and PlayStation and Xbox.</p>
 </section>
 
 <!-- CODE -->
 <section id="code">
-  <div class="section-number">07 — Code</div>
-  <h2>Code Walkthrough</h2>
-  <p>Heres my code broken into cells with explanations for what each part does.</p>
+  <div class="section-number">07 - Code</div>
+  <h2>Code</h2>
+  <p>Heres the code I used to clean the data and make the charts. Ran it all in Google Colab.</p>
 
   <div class="nb-cell">
-    <div class="nb-cell-header">[ 1 ]</div>
+    <div class="nb-cell-header">[ 1 ] imports</div>
     <div class="nb-code"><span class="kw">import</span> pandas <span class="kw">as</span> pd
 <span class="kw">import</span> seaborn <span class="kw">as</span> sns
 <span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt</div>
-    <div class="nb-explain">So <strong>pandas</strong> is what I used to load and work with the data, its basically how you handle tables in python. <strong>seaborn</strong> and <strong>matplotlib</strong> are both for making charts. seaborn just makes them look a bit nicer. The "pd", "sns", "plt" are just shorter names so I dont have to type the full thing every time I call something.</div>
+    <div class="nb-explain"><strong>import pandas as pd</strong> - loads pandas. its for working with data tables. pd is just the shortcut so i dont type "pandas" every time<br><strong>import seaborn as sns</strong> - chart library. used it for the bar charts, line chart, and heatmap<br><strong>import matplotlib.pyplot as plt</strong> - another chart library. seaborn runs on top of this one. plt is the shortcut</div>
   </div>
 
   <div class="nb-cell">
-    <div class="nb-cell-header">[ 2 ]</div>
+    <div class="nb-cell-header">[ 2 ] load data</div>
     <div class="nb-code">df = pd.read_csv(<span class="str">"vgsales.csv"</span>)</div>
-    <div class="nb-explain">This is where I loaded my dataset. <strong>pd.read_csv()</strong> takes the CSV file and turns it into a dataframe which is just a fancy word for a table with rows and columns. I stored it in a variable called <strong>df</strong> so I can refer back to it throughout the rest of the code.</div>
+    <div class="nb-explain"><strong>pd.read_csv("vgsales.csv")</strong> - reads the csv file from kaggle and puts it into a table<br><strong>df</strong> - i saved the table as df, short for dataframe</div>
   </div>
 
   <div class="nb-cell">
-    <div class="nb-cell-header">[ 3 ]</div>
-    <div class="nb-code">df.head()</div>
-    <div class="nb-explain">I ran this to see the first 5 rows of my data. I wanted to get a quick look at what the columns were and what kind of values I was dealing with before doing anything else.</div>
+    <div class="nb-cell-header">[ 3 ] look at it</div>
+    <div class="nb-code">df.head()
+df.shape
+df.isnull().sum()</div>
+    <div class="nb-explain"><strong>df.head()</strong> - shows first 5 rows so i can see whats in the data<br><strong>df.shape</strong> - tells me rows and columns. got about 16500 rows and 11 columns<br><strong>df.isnull().sum()</strong> - checks for empty cells per column. isnull() flags empty ones as True, sum() counts them up. year had 271 missing, publisher had 2</div>
   </div>
 
   <div class="nb-cell">
-    <div class="nb-cell-header">[ 4 ]</div>
-    <div class="nb-code">df.shape</div>
-    <div class="nb-explain">This told me how many rows and columns I had. It came back as something like (16598, 11) so about 16,500 games with 11 columns of info.</div>
+    <div class="nb-cell-header">[ 4 ] cleaning</div>
+    <div class="nb-code">df = df.dropna(subset=[<span class="str">"Year"</span>])
+df[<span class="str">"Year"</span>] = df[<span class="str">"Year"</span>].astype(<span class="kw">int</span>)
+df = df[(df[<span class="str">"Year"</span>] >= <span class="num">1990</span>) &amp; (df[<span class="str">"Year"</span>] &lt;= <span class="num">2016</span>)]
+df = df.dropna(subset=[<span class="str">"Publisher"</span>])</div>
+    <div class="nb-explain"><strong>df.dropna(subset=["Year"])</strong> - removes rows where year is empty. dropna = drop the empty ones. subset tells it which column to check<br><strong>df["Year"].astype(int)</strong> - year was showing as 2006.0, astype(int) changes it to 2006. int means whole number<br><strong>df[(df["Year"] >= 1990) & (df["Year"] <= 2016)]</strong> - keeps only rows between 1990 and 2016. & means both sides have to be true. the parentheses around each part are required or pandas throws an error<br><strong>df.dropna(subset=["Publisher"])</strong> - same thing for publisher. only 2 rows were missing</div>
   </div>
 
   <div class="nb-cell">
-    <div class="nb-cell-header">[ 5 ]</div>
-    <div class="nb-code">df.columns</div>
-    <div class="nb-explain">I just wanted to see all the column names listed out so I knew exactly what I had to work with.</div>
+    <div class="nb-cell-header">[ 5 ] check after cleaning</div>
+    <div class="nb-code">df.shape
+df[<span class="str">"Genre"</span>].value_counts()</div>
+    <div class="nb-explain"><strong>df.shape</strong> - checking how much data i have left. about 15000 rows now<br><strong>df["Genre"].value_counts()</strong> - counts how many games per genre and sorts most to least. action had the most. 12 genres total</div>
   </div>
 
   <div class="nb-cell">
-    <div class="nb-cell-header">[ 6 ]</div>
-    <div class="nb-code">df.describe()</div>
-    <div class="nb-explain">This gave me summary stats like the average, min, max, and standard deviation for all the number columns. I mainly checked it to make sure nothing looked obviously wrong, like negative sales or something.</div>
-  </div>
-
-  <div class="nb-cell">
-    <div class="nb-cell-header">[ 7 ]</div>
-    <div class="nb-code">df.isnull().sum()</div>
-    <div class="nb-explain">I needed to check for missing data before I started cleaning. <strong>.isnull()</strong> looks at every cell and flags the empty ones, then <strong>.sum()</strong> counts them up per column. Thats how I found out Year had about 271 missing values and Publisher had a couple.</div>
-  </div>
-
-  <div class="nb-cell">
-    <div class="nb-cell-header">[ 8 ]</div>
-    <div class="nb-code">df = df.dropna(subset=[<span class="str">"Year"</span>])</div>
-    <div class="nb-explain">Here I removed every row where Year was empty. <strong>.dropna()</strong> drops rows with missing values, and <strong>subset=["Year"]</strong> tells it to only look at that one column. I needed Year for my time trend chart so keeping rows without it didnt make sense.</div>
-  </div>
-
-  <div class="nb-cell">
-    <div class="nb-cell-header">[ 9 ]</div>
-    <div class="nb-code">df[<span class="str">"Year"</span>] = df[<span class="str">"Year"</span>].astype(<span class="kw">int</span>)</div>
-    <div class="nb-explain">Year was showing up as 2006.0 instead of just 2006 which bugged me. <strong>.astype(int)</strong> converts every value from a decimal to a whole number. Not a huge deal but it looks cleaner in the charts.</div>
-  </div>
-
-  <div class="nb-cell">
-    <div class="nb-cell-header">[ 10 ]</div>
-    <div class="nb-code">df = df[(df[<span class="str">"Year"</span>] >= <span class="num">1990</span>) &amp; (df[<span class="str">"Year"</span>] &lt;= <span class="num">2016</span>)]</div>
-    <div class="nb-explain">I decided to cut the data to just 1990 through 2016. There was barely anything before 1990 and the stuff after 2016 looked really incomplete. The <strong>&amp;</strong> means AND so both conditions have to be true. the year has to be at least 1990 and at most 2016 for the row to stay.</div>
-  </div>
-
-  <div class="nb-cell">
-    <div class="nb-cell-header">[ 11 ]</div>
-    <div class="nb-code">df = df.dropna(subset=[<span class="str">"Publisher"</span>])</div>
-    <div class="nb-explain">Same idea as the Year one. A couple rows had no publisher listed so I just got rid of them. It was literally like 2 rows so it didnt affect anything.</div>
-  </div>
-
-  <div class="nb-cell">
-    <div class="nb-cell-header">[ 12 ]</div>
-    <div class="nb-code">df.shape</div>
-    <div class="nb-explain">I checked the size again after all the cleaning just to make sure I didnt accidentally delete way too much data. Went from about 16,500 to around 15,000 which seemed reasonable.</div>
-  </div>
-
-  <div class="nb-cell">
-    <div class="nb-cell-header">[ 13 ]</div>
-    <div class="nb-code">df[<span class="str">"Genre"</span>].value_counts()</div>
-    <div class="nb-explain"><strong>.value_counts()</strong> counts how many times each genre appears and sorts it. So I could see Action had the most games, then Sports, then Misc, etc. There were 12 genres total in the cleaned data.</div>
-  </div>
-
-  <div class="nb-cell">
-    <div class="nb-cell-header">[ 14 ]</div>
-    <div class="nb-code">sns.set_style(<span class="str">"whitegrid"</span>)</div>
-    <div class="nb-explain">This just sets a white background with gridlines for all the charts. I thought it looked cleaner than the default gray.</div>
-  </div>
-
-  <div class="nb-cell">
-    <div class="nb-cell-header">[ 15 ] — Chart 1</div>
-    <div class="nb-code"><span class="comment"># total sales by genre</span>
-genre_sales = df.groupby(<span class="str">"Genre"</span>)[<span class="str">"Global_Sales"</span>].sum().sort_values(ascending=<span class="kw">False</span>)
+    <div class="nb-cell-header">[ 6 ] chart 1 - bar chart</div>
+    <div class="nb-code">genre_sales = df.groupby(<span class="str">"Genre"</span>)[<span class="str">"Global_Sales"</span>].sum().sort_values(ascending=<span class="kw">False</span>)
 
 plt.figure(figsize=(<span class="num">10</span>, <span class="num">6</span>))
 sns.barplot(x=genre_sales.values, y=genre_sales.index, palette=<span class="str">"viridis"</span>)
@@ -259,13 +208,12 @@ plt.ylabel(<span class="str">"Genre"</span>)
 plt.tight_layout()
 plt.savefig(<span class="str">"images/viz1_genre_sales.png"</span>, dpi=<span class="num">150</span>)
 plt.show()</div>
-    <div class="nb-explain">This was my first chart. I used <strong>.groupby("Genre")</strong> to sort all the games into piles by genre, then <strong>.sum()</strong> to add up the sales for each pile. <strong>.sort_values(ascending=False)</strong> puts the biggest sellers at the top.<br><br>Then I created a bar chart with <strong>sns.barplot()</strong> where the x axis has the sales numbers and y has the genre names. <strong>plt.figure(figsize=(10, 6))</strong> just sets the size of the chart. <strong>plt.tight_layout()</strong> so the labels dont get cut off. <strong>plt.savefig()</strong> saves it as an image file and dpi=150 keeps it from looking blurry.</div>
+    <div class="nb-explain"><strong>df.groupby("Genre")</strong> - puts all games into piles by genre. all action games together, all sports together, etc<br><strong>["Global_Sales"].sum()</strong> - adds up sales for each pile. one total per genre now<br><strong>.sort_values(ascending=False)</strong> - biggest first<br><strong>plt.figure(figsize=(10, 6))</strong> - blank canvas, 10 wide 6 tall<br><strong>sns.barplot(x=..., y=...)</strong> - draws the bars. x is the numbers, y is the genre names. palette is just a color scheme<br><strong>plt.title, plt.xlabel, plt.ylabel</strong> - adds the title and labels on the axes<br><strong>plt.tight_layout()</strong> - fixes spacing so stuff doesnt get cut off<br><strong>plt.savefig(...)</strong> - saves chart as a png image. dpi=150 so its not blurry<br><strong>plt.show()</strong> - shows it on screen in colab</div>
   </div>
 
   <div class="nb-cell">
-    <div class="nb-cell-header">[ 16 ] — Chart 2</div>
-    <div class="nb-code"><span class="comment"># comparing regions for each genre</span>
-region_sales = df.groupby(<span class="str">"Genre"</span>)[[<span class="str">"NA_Sales"</span>, <span class="str">"EU_Sales"</span>, <span class="str">"JP_Sales"</span>]].sum()
+    <div class="nb-cell-header">[ 7 ] chart 2 - grouped bar</div>
+    <div class="nb-code">region_sales = df.groupby(<span class="str">"Genre"</span>)[[<span class="str">"NA_Sales"</span>, <span class="str">"EU_Sales"</span>, <span class="str">"JP_Sales"</span>]].sum()
 region_sales = region_sales.sort_values(<span class="str">"NA_Sales"</span>, ascending=<span class="kw">False</span>)
 
 region_sales.plot(kind=<span class="str">"bar"</span>, figsize=(<span class="num">12</span>, <span class="num">7</span>), color=[<span class="str">"#2196F3"</span>, <span class="str">"#FF9800"</span>, <span class="str">"#E91E63"</span>])
@@ -277,73 +225,61 @@ plt.xticks(rotation=<span class="num">45</span>, ha=<span class="str">"right"</s
 plt.tight_layout()
 plt.savefig(<span class="str">"images/viz2_regional_sales.png"</span>, dpi=<span class="num">150</span>)
 plt.show()</div>
-    <div class="nb-explain">For this one I wanted to compare the three regions side by side. The double brackets <strong>[[ ]]</strong> let me grab multiple columns at once, so each genre gets three separate totals. one for NA, one for EU, one for Japan.<br><br><strong>.plot(kind="bar")</strong> automatically makes 3 bars per genre since theres 3 columns. I picked blue for NA, orange for EU, pink for Japan. <strong>plt.legend()</strong> adds the color key and <strong>plt.xticks(rotation=45)</strong> tilts the genre names so they dont overlap each other.</div>
+    <div class="nb-explain"><strong>df.groupby("Genre")[["NA_Sales", "EU_Sales", "JP_Sales"]].sum()</strong> - same groupby but double brackets [[ ]] grabs 3 columns at once instead of 1. single brackets = one column, double = multiple. each genre gets 3 totals now<br><strong>region_sales.sort_values("NA_Sales", ascending=False)</strong> - sorted by NA sales biggest first<br><strong>region_sales.plot(kind="bar", ...)</strong> - since theres 3 columns it puts 3 bars next to each other per genre automatically. the colors are hex codes, blue for NA orange for EU pink for Japan<br><strong>plt.legend([...])</strong> - adds the little color key box<br><strong>plt.xticks(rotation=45, ha="right")</strong> - tilts the genre names 45 degrees so they dont overlap each other</div>
   </div>
 
   <div class="nb-cell">
-    <div class="nb-cell-header">[ 17 ] — Chart 3</div>
-    <div class="nb-code"><span class="comment"># top 5 genres over time</span>
-top5 = genre_sales.head(<span class="num">5</span>).index.tolist()
-
+    <div class="nb-cell-header">[ 8 ] chart 3 - line chart</div>
+    <div class="nb-code">top5 = genre_sales.head(<span class="num">5</span>).index.tolist()
 yearly = df[df[<span class="str">"Genre"</span>].isin(top5)].groupby([<span class="str">"Year"</span>, <span class="str">"Genre"</span>])[<span class="str">"Global_Sales"</span>].sum().reset_index()
 
 plt.figure(figsize=(<span class="num">12</span>, <span class="num">7</span>))
-sns.lineplot(data=yearly, x=<span class="str">"Year"</span>, y=<span class="str">"Global_Sales"</span>, hue=<span class="str">"Genre"</span>, marker=<span class="str">"o"</span>, linewidth=<span class="num">2</span>)
+sns.lineplot(data=yearly, x=<span class="str">"Year"</span>, y=<span class="str">"Global_Sales"</span>, hue=<span class="str">"Genre"</span>, marker=<span class="str">"o"</span>)
 plt.title(<span class="str">"Top 5 Genre Sales Over Time (1990-2016)"</span>)
 plt.xlabel(<span class="str">"Year"</span>)
 plt.ylabel(<span class="str">"Global Sales (millions)"</span>)
-plt.legend(title=<span class="str">"Genre"</span>)
 plt.tight_layout()
 plt.savefig(<span class="str">"images/viz3_genre_trends.png"</span>, dpi=<span class="num">150</span>)
 plt.show()</div>
-    <div class="nb-explain">I only wanted the top 5 genres here because if I put all 12 on one line chart itd be impossible to read. <strong>.head(5).index.tolist()</strong> grabs the names of the top 5 from my earlier sorted data.<br><br><strong>.isin(top5)</strong> filters the dataframe so only those 5 genres are left. Then I grouped by both Year and Genre at the same time so I get something like Action sales in 1990, Action in 1991, Sports in 1990, etc. <strong>.reset_index()</strong> just flattens it back into a normal table.<br><br><strong>sns.lineplot()</strong> draws one line per genre. <strong>hue="Genre"</strong> gives each genre its own color and <strong>marker="o"</strong> puts dots at each data point so you can see the individual years.</div>
+    <div class="nb-explain"><strong>genre_sales.head(5)</strong> - gets the first 5 from the sorted list (top 5 sellers)<br><strong>.index</strong> - gets the names not the numbers<br><strong>.tolist()</strong> - turns it into a regular python list. ends up being something like ["Action", "Sports", "Shooter", "Role-Playing", "Misc"]. only 5 because 12 lines on one chart would be a mess<br><br><strong>df[df["Genre"].isin(top5)]</strong> - isin(top5) checks each row: is this games genre in my top 5 list? keeps only the ones that are<br><strong>.groupby(["Year", "Genre"])</strong> - groups by both year and genre at the same time. so i get action in 1990, action in 1991, sports in 1990, etc<br><strong>["Global_Sales"].sum()</strong> - adds up sales per group<br><strong>.reset_index()</strong> - after groupby the data gets nested weird. this flattens it back to a normal table. lineplot needs it flat<br><br><strong>sns.lineplot(data=yearly, x="Year", y="Global_Sales", hue="Genre", marker="o")</strong> - draws a line for each genre. hue makes each one a different color. marker="o" puts dots at each year</div>
   </div>
 
   <div class="nb-cell">
-    <div class="nb-cell-header">[ 18 ] — Chart 4</div>
-    <div class="nb-code"><span class="comment"># regional share heatmap</span>
-region_pct = df.groupby(<span class="str">"Genre"</span>)[[<span class="str">"NA_Sales"</span>, <span class="str">"EU_Sales"</span>, <span class="str">"JP_Sales"</span>, <span class="str">"Other_Sales"</span>]].sum()
-
-<span class="comment"># convert to percentages</span>
+    <div class="nb-cell-header">[ 9 ] chart 4 - heatmap</div>
+    <div class="nb-code">region_pct = df.groupby(<span class="str">"Genre"</span>)[[<span class="str">"NA_Sales"</span>, <span class="str">"EU_Sales"</span>, <span class="str">"JP_Sales"</span>, <span class="str">"Other_Sales"</span>]].sum()
 region_pct = region_pct.div(region_pct.sum(axis=<span class="num">1</span>), axis=<span class="num">0</span>) * <span class="num">100</span>
 region_pct.columns = [<span class="str">"North America %"</span>, <span class="str">"Europe %"</span>, <span class="str">"Japan %"</span>, <span class="str">"Other %"</span>]
 
 plt.figure(figsize=(<span class="num">10</span>, <span class="num">8</span>))
 sns.heatmap(region_pct, annot=<span class="kw">True</span>, fmt=<span class="str">".1f"</span>, cmap=<span class="str">"YlOrRd"</span>, linewidths=<span class="num">0.5</span>)
 plt.title(<span class="str">"Regional Share of Sales by Genre (%)"</span>)
-plt.ylabel(<span class="str">"Genre"</span>)
 plt.tight_layout()
 plt.savefig(<span class="str">"images/viz4_region_heatmap.png"</span>, dpi=<span class="num">150</span>)
 plt.show()</div>
-    <div class="nb-explain">This one took me a minute to understand. The idea is to turn raw sales numbers into percentages so I can see what share of each genre comes from each region.<br><br><strong>.sum(axis=1)</strong> adds across each row to get the total for that genre. <strong>.div()</strong> divides each cell by that total. so if Action had 800M in NA out of 1500M total, it becomes 0.53. Then I multiply by 100 to make it an actual percentage (53.0%).<br><br><strong>sns.heatmap()</strong> draws the colored grid. <strong>annot=True</strong> puts the numbers inside each cell so you can read them. <strong>fmt=".1f"</strong> rounds to 1 decimal place. <strong>cmap="YlOrRd"</strong> makes it go from yellow (low) to red (high) so you can see right away which cells have the biggest percentages.</div>
+    <div class="nb-explain"><strong>df.groupby("Genre")[[...]].sum()</strong> - groupby with all 4 region columns this time<br><br>the percentage line is the tricky part:<br><strong>region_pct.sum(axis=1)</strong> - adds across each row to get the total per genre. axis=1 means go sideways. so if action has NA=800 EU=400 JP=100 Other=200 the total is 1500<br><strong>.div(..., axis=0)</strong> - divides each cell by that row total. 800 / 1500 = 0.533<br><strong>* 100</strong> - turns 0.533 into 53.3%. now instead of raw numbers i have percentages that add up to 100 per genre<br><br><strong>region_pct.columns = [...]</strong> - renames the columns so they look nicer in the chart<br><br><strong>sns.heatmap(region_pct, annot=True, fmt=".1f", cmap="YlOrRd", linewidths=0.5)</strong><br>- annot=True puts the actual numbers inside each colored cell<br>- fmt=".1f" rounds to 1 decimal so its 53.3 not 53.33333<br>- cmap="YlOrRd" color scheme going yellow to red. darker = higher %<br>- linewidths puts thin borders between cells</div>
   </div>
 
   <div class="nb-cell">
-    <div class="nb-cell-header">[ 19 ]</div>
-    <div class="nb-code"><span class="comment"># summary</span>
-print(<span class="str">f"Top genre: </span>{genre_sales.index[<span class="num">0</span>]}<span class="str"> (</span>{genre_sales.values[<span class="num">0</span>]:.1f}<span class="str">M)"</span>)
+    <div class="nb-cell-header">[ 10 ] summary</div>
+    <div class="nb-code">print(<span class="str">f"Top genre: </span>{genre_sales.index[<span class="num">0</span>]}<span class="str">"</span>)
 print(<span class="str">f"Total games: </span>{len(df)}<span class="str">"</span>)
-print(<span class="str">f"Genres: </span>{df[<span class="str">'Genre'</span>].nunique()}<span class="str">"</span>)
-
-jp_top = df.groupby(<span class="str">"Genre"</span>)[<span class="str">"JP_Sales"</span>].sum().idxmax()
-na_top = df.groupby(<span class="str">"Genre"</span>)[<span class="str">"NA_Sales"</span>].sum().idxmax()
-print(<span class="str">f"#1 in NA: </span>{na_top}<span class="str">"</span>)
-print(<span class="str">f"#1 in Japan: </span>{jp_top}<span class="str">"</span>)</div>
-    <div class="nb-explain">Just printing out a quick summary at the end. <strong>.index[0]</strong> grabs the name of the top genre since I already sorted it earlier. <strong>len(df)</strong> gives me the total number of rows. <strong>.nunique()</strong> counts how many different genres there are.<br><br><strong>.idxmax()</strong> was pretty useful. after grouping by genre and adding up the sales for a region, it gives back the name of whichever genre had the highest number. Thats how I confirmed that Action is #1 in NA and Role-Playing is #1 in Japan.</div>
+print(<span class="str">f"#1 in NA: </span>{df.groupby(<span class="str">'Genre'</span>)[<span class="str">'NA_Sales'</span>].sum().idxmax()}<span class="str">"</span>)
+print(<span class="str">f"#1 in Japan: </span>{df.groupby(<span class="str">'Genre'</span>)[<span class="str">'JP_Sales'</span>].sum().idxmax()}<span class="str">"</span>)</div>
+    <div class="nb-explain"><strong>genre_sales.index[0]</strong> - grabs the first genre name. since its already sorted thats the top seller<br><strong>len(df)</strong> - counts total rows<br><strong>.idxmax()</strong> - after groupby and sum, gives back the NAME of whichever genre had the highest number. so for NA it returns Action, for Japan it returns Role-Playing<br><strong>f"..."</strong> - f-string. lets you put variables inside {} and python fills them in automatically</div>
   </div>
 
 </section>
 
-<!-- REFERENCES & AI -->
+<!-- REFERENCES -->
 <section id="refs">
-  <div class="section-number">08 — References &amp; AI Transparency</div>
+  <div class="section-number">08 - References</div>
   <h2>References and AI Use</h2>
   <ul class="ref-list">
     <li><strong>Dataset:</strong> Gregory Smith, "Video Game Sales" on Kaggle (<a href="https://www.kaggle.com/datasets/gregorut/videogamesales">link</a>). Data originally from VGChartz.com.</li>
     <li><strong>Tools:</strong> Python 3, pandas, matplotlib, seaborn. Ran everything in Google Colab.</li>
     <li><strong>pandas documentation:</strong> <a href="https://pandas.pydata.org/docs/">pandas.pydata.org/docs</a> (looked up groupby, dropna, value_counts, filtering, etc)</li>
-    <li><strong>seaborn documentation:</strong> <a href="https://seaborn.pydata.org/tutorial.html">seaborn.pydata.org/tutorial</a> (looked up barplot, lineplot, heatmap usage)</li>
-    <li><strong>matplotlib documentation:</strong> <a href="https://matplotlib.org/stable/tutorials/index.html">matplotlib.org/stable/tutorials</a> (looked up figure creation, saving, and labels)</li>
+    <li><strong>seaborn documentation:</strong> <a href="https://seaborn.pydata.org/tutorial.html">seaborn.pydata.org/tutorial</a> (looked up barplot, lineplot, heatmap)</li>
+    <li><strong>matplotlib documentation:</strong> <a href="https://matplotlib.org/stable/tutorials/index.html">matplotlib.org/stable/tutorials</a> (looked up figure creation, saving, labels)</li>
     <li><strong>Course:</strong> DTSC 2301 lectures and demos.</li>
   </ul>
 
@@ -362,19 +298,10 @@ print(<span class="str">f"#1 in Japan: </span>{jp_top}<span class="str">"</span>
     <p>For the website layout I used Claude to help generate the HTML and CSS since I dont have a web development background. I told it what I was going for and it helped me put the page together and figure out how to get it hosted on GitHub Pages.</p>
   </div>
 
-  <div class="ai-detail">
-    <div class="ai-label">Code References</div>
-    <p>The Python code in this project is based on the official documentation for the libraries I used:</p>
-    <p style="margin-bottom:4px;">• <a href="https://pandas.pydata.org/docs/">pandas documentation</a> (dataframes, groupby, filtering, dropna, value_counts)</p>
-    <p style="margin-bottom:4px;">• <a href="https://matplotlib.org/stable/tutorials/index.html">matplotlib tutorials</a> (creating and saving figures)</p>
-    <p style="margin-bottom:4px;">• <a href="https://seaborn.pydata.org/tutorial.html">seaborn tutorial</a> (barplot, lineplot, heatmap)</p>
-    <p style="margin-bottom:4px;">• McKinney, Wes. <em>Python for Data Analysis</em>, 3rd ed. O'Reilly Media, 2022. (general pandas reference, written by the creator of pandas)</p>
-  </div>
-
 </section>
 
 </div>
 
-<footer>DTSC 2301 · Project 1 · Haoran Chen · Spring 2026</footer>
+<footer>DTSC 2301 - Project 1 - Haoran Chen - Spring 2026</footer>
 </body>
 </html>
