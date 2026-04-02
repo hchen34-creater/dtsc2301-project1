@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HC's Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #0e1117; --surface: #161b22; --border: #30363d; --text: #e6edf3; --text-muted: #8b949e; --accent: #58a6ff; --accent3: #d2a8ff; --heading: #f0f6fc; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Source Sans 3', sans-serif; background: var(--bg); color: var(--text); line-height: 1.75; font-size: 17px; min-height: 100vh; display: flex; flex-direction: column; }
+  .hero { background: linear-gradient(135deg, #0d1b2a 0%, #1b2838 40%, #2a1a3e 100%); padding: 140px 20px 80px; text-align: center; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(ellipse at 30% 50%, rgba(88,166,255,0.07) 0%, transparent 50%), radial-gradient(ellipse at 70% 50%, rgba(210,168,255,0.07) 0%, transparent 50%); animation: drift 20s ease-in-out infinite alternate; }
+  @keyframes drift { 0% { transform: translateX(-5%) translateY(-2%); } 100% { transform: translateX(5%) translateY(2%); } }
+  .hero-content { position: relative; z-index: 1; }
+  .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.5rem, 6vw, 4rem); color: var(--heading); margin-bottom: 16px; }
+  .hero p { color: var(--text-muted); font-size: 1.15rem; max-width: 500px; margin: 0 auto; }
+  .container { max-width: 820px; margin: 0 auto; padding: 60px 24px; flex: 1; }
+  .projects-label { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--accent3); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 24px; }
+  .project-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px; margin-bottom: 24px; text-decoration: none; display: block; transition: border-color 0.2s, transform 0.2s; }
+  .project-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .project-card .tag { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; display: inline-block; }
+  .project-card h2 { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--heading); margin-bottom: 12px; }
+  .project-card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0; }
+  .project-card .tools { margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .project-card .tools span { background: rgba(88,166,255,0.1); color: var(--accent); padding: 4px 10px; border-radius: 12px; font-size: 12px; font-family: 'JetBrains Mono', monospace; }
+  footer { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border); }
+  @media (max-width: 600px) { .hero { padding: 100px 16px 60px; } }
+</style>
+</head>
+<body>
+
+<div class="hero"><div class="hero-content">
+  <h1>HC's Portfolio</h1>
+  <p>Haoran Chen / DTSC 2301 / Spring 2026</p>
+</div></div>
+
+<div class="container">
+  <div class="projects-label">Projects</div>
+
+  <a href="project1.html" class="project-card">
+    <div class="tag">Project 1</div>
+    <h2>Video Game Sales Analysis</h2>
+    <p>Looking at how game sales break down by genre and region, and whether genre popularity has shifted over the years. Exploratory data analysis with 4 visualizations on a dataset of ~16,500 games from Kaggle.</p>
+    <div class="tools"><span>pandas</span><span>seaborn</span><span>matplotlib</span></div>
+  </a>
+
+  <a href="project2.html" class="project-card">
+    <div class="tag">Project 2</div>
+    <h2>Social Media & Mental Health</h2>
+    <p>Can we predict whether someone has high mental health impact from their social media habits? Built and compared 3 machine learning models on survey data from 481 respondents.</p>
+    <div class="tools"><span>pandas</span><span>scikit-learn</span><span>seaborn</span><span>matplotlib</span></div>
+  </a>
+
+</div>
+
+<footer>Haoran Chen / DTSC 2301 / Spring 2026</footer>
+</body>
+</html>
