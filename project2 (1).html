@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project 2: Social Media & Mental Health - HC's Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #0e1117; --surface: #161b22; --border: #30363d; --text: #e6edf3; --text-muted: #8b949e; --accent: #58a6ff; --accent2: #7ee787; --accent3: #d2a8ff; --warning: #d29922; --heading: #f0f6fc; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Source Sans 3', sans-serif; background: var(--bg); color: var(--text); line-height: 1.75; font-size: 17px; }
+  nav { position: fixed; top: 0; width: 100%; z-index: 100; background: rgba(14,17,23,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; }
+  nav .logo { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--heading); text-decoration: none; }
+  nav .links { display: flex; gap: 20px; flex-wrap: wrap; }
+  nav .links a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.5px; }
+  nav .links a:hover { color: var(--accent); }
+  .hero { background: linear-gradient(135deg, #0d1b2a 0%, #1b2838 40%, #2a1a3e 100%); padding: 120px 20px 70px; text-align: center; border-bottom: 1px solid var(--border); }
+  .hero .tag { display: inline-block; background: rgba(88,166,255,0.15); color: var(--accent); padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 20px; }
+  .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 5vw, 3.2rem); color: var(--heading); margin-bottom: 16px; }
+  .hero p { color: var(--text-muted); font-size: 1.1rem; max-width: 620px; margin: 0 auto; }
+  .container { max-width: 820px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 50px 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: none; }
+  .section-number { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--accent3); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  h2 { font-family: 'DM Serif Display', serif; font-size: 1.9rem; color: var(--heading); margin-bottom: 20px; }
+  p { margin-bottom: 14px; }
+  .highlight-box { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 8px; padding: 20px 24px; margin: 24px 0; }
+  .highlight-box.green { border-left-color: var(--accent2); }
+  .highlight-box.purple { border-left-color: var(--accent3); }
+  .highlight-box.yellow { border-left-color: var(--warning); }
+  .highlight-box strong { color: var(--heading); display: block; margin-bottom: 6px; }
+  .data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
+  .data-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; }
+  .data-card .label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .data-card .value { font-family: 'JetBrains Mono', monospace; font-size: 1.3rem; color: var(--accent); font-weight: 500; }
+  .viz-block { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin: 28px 0; }
+  .viz-block h3 { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--heading); margin-bottom: 8px; }
+  .viz-block img { width: 100%; border-radius: 8px; border: 1px solid var(--border); }
+  .viz-block .finding { margin-top: 16px; padding: 12px 16px; background: rgba(126,231,135,0.08); border-radius: 6px; font-size: 0.95rem; }
+  .model-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px; margin: 16px 0; }
+  .model-card h3 { color: var(--heading); font-size: 1.1rem; margin-bottom: 8px; }
+  .model-card .score { font-family: 'JetBrains Mono', monospace; font-size: 1.4rem; color: var(--accent); }
+  .nb-cell { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; margin: 16px 0; overflow: hidden; }
+  .nb-cell-header { padding: 6px 12px; background: rgba(88,166,255,0.08); border-bottom: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent); }
+  .nb-code { background: #0d1117; padding: 14px 16px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text); overflow-x: auto; white-space: pre; line-height: 1.7; }
+  .nb-explain { padding: 14px 16px; font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; border-top: 1px solid var(--border); background: rgba(210,168,255,0.04); }
+  .ai-detail { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; margin: 12px 0; }
+  .ai-detail .ai-label { font-size: 12px; color: var(--accent3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; font-family: 'JetBrains Mono', monospace; }
+  .ref-list { list-style: none; padding: 0; }
+  .ref-list li { padding: 10px 0; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+  .ref-list li:last-child { border-bottom: none; }
+  .ref-list a { color: var(--accent); text-decoration: none; }
+  footer { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border); }
+  html { scroll-behavior: smooth; scroll-padding-top: 60px; }
+  @media (max-width: 600px) { .data-grid { grid-template-columns: 1fr; } .hero { padding: 100px 16px 50px; } nav .links { display: none; } }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo">HC's Portfolio</a>
+  <div class="links"><a href="index.html">Home</a><a href="project1.html">Project 1</a><a href="#problem">Problem</a><a href="#data">Data</a><a href="#models">Models</a><a href="#results">Results</a><a href="#code">Code</a><a href="#refs">References</a></div>
+</nav>
+<div class="hero">
+  <span class="tag">DTSC 2301 - Project 2</span>
+  <h1>Social Media & Mental Health</h1>
+  <p>Can we predict whether someone has high mental health impact from their social media habits?</p>
+</div>
+<div class="container">
+
+<section id="problem">
+  <div class="section-number">01 - Problem</div>
+  <h2>Why This Matters</h2>
+  <p>Social media is a huge part of most college students lives. People my age spend hours scrolling through Instagram, TikTok, Twitter every day and most of us dont really think about what thats doing to us mentally.</p>
+  <p>This actually just became a huge deal in the news. On March 25, 2026 a jury in Los Angeles found Meta and Google liable in a lawsuit brought by a 20 year old woman named Kaley who said she got hooked on social media as a kid and it caused her anxiety, body dysmorphia, and suicidal thoughts. She started watching YouTube at age 6 and had Instagram by age 9. The jury ordered the companies to pay $6 million in total damages. It was the first trial of its kind and theres over 1,500 similar cases waiting. People are comparing it to the Big Tobacco lawsuits from the 90s.</p>
+  <p>That case is basically about what I wanted to look at with data. Can you predict whether someone is going to have higher mental health issues based on how they use social media. And which parts of social media usage matter the most.</p>
+  <div class="highlight-box"><strong>Research Question</strong>Can we predict whether a person experiences high mental health impact based on their social media usage patterns? And which behaviors are the strongest predictors?</div>
+</section>
+
+<section id="data">
+  <div class="section-number">02 - Data</div>
+  <h2>About the Dataset</h2>
+  <p>I found a survey dataset on Kaggle called "Social Media and Mental Health." Each row is one persons response.</p>
+  <div class="data-grid">
+    <div class="data-card"><div class="label">Responses</div><div class="value">481</div></div>
+    <div class="data-card"><div class="label">Questions</div><div class="value">20</div></div>
+    <div class="data-card"><div class="label">Source</div><div class="value">Kaggle</div></div>
+    <div class="data-card"><div class="label">After cleaning</div><div class="value">446</div></div>
+  </div>
+  <p>The survey covered demographics (age, gender), social media habits (platforms, time spent, purposeless scrolling), and mental health questions on a 1 to 5 scale (distraction, worry, depression, sleep issues, comparing yourself to others).</p>
+  <p>I created the target variable by combining 5 mental health questions into a score and splitting at the median. Above median = high impact (1), below = low impact (0). Ended up with 243 low and 203 high.</p>
+  <div class="highlight-box"><strong>Preprocessing</strong>
+    Dropped timestamp and useless columns. Converted time from text to numbers. Encoded gender as numbers. Counted platforms per person. Scaled features with StandardScaler. Split 80/20 with stratification.
+  </div>
+</section>
+
+<section id="models">
+  <div class="section-number">03 - Models</div>
+  <h2>Three Models Compared</h2>
+  <p>Tried three models with 5-fold cross validation on the training data.</p>
+  <div class="model-card"><h3>Logistic Regression</h3><p>CV Accuracy: <span class="score">0.7697</span> (best)</p></div>
+  <div class="model-card"><h3>Decision Tree (depth 5)</h3><p>CV Accuracy: <span class="score">0.7360</span></p></div>
+  <div class="model-card"><h3>Random Forest (100 trees)</h3><p>CV Accuracy: <span class="score">0.7557</span></p></div>
+  <p>Logistic Regression did the best at 77%. Test accuracy was 76.67% which is close to the CV score so it didnt overfit.</p>
+  <div class="viz-block"><h3>Model Comparison</h3><img src="images_p2/fig4_model_comparison.png" alt="Model comparison."></div>
+</section>
+
+<section id="results">
+  <div class="section-number">04 - Results</div>
+  <h2>What I Found</h2>
+  <div class="viz-block"><h3>Target Distribution</h3><img src="images_p2/fig1_target_dist.png" alt="Target distribution."><div class="finding">243 low vs 203 high. Roughly balanced.</div></div>
+  <div class="viz-block"><h3>Social Media Time vs Impact</h3><img src="images_p2/fig2_time_vs_impact.png" alt="Boxplot."><div class="finding">High impact group spends more time on social media but theres a lot of overlap. Time alone isnt enough.</div></div>
+  <div class="viz-block"><h3>Correlation Matrix</h3><img src="images_p2/fig3_correlation.png" alt="Correlation."><div class="finding">Comparing yourself to others is tied to seeking validation and feeling depressed.</div></div>
+  <div class="viz-block"><h3>Confusion Matrix</h3><img src="images_p2/fig5_confusion_matrix.png" alt="Confusion matrix."><div class="finding">Got 40/49 low impact right and 29/41 high impact right.</div></div>
+  <div class="viz-block"><h3>Feature Importance</h3><img src="images_p2/fig6_feature_importance.png" alt="Feature importance."><div class="finding">Easily_Distracted and Compare_Others were the top predictors. Being easily distracted and comparing yourself to others matters way more than just time spent.</div></div>
+  <p>The feature importance was the most interesting part. Its not about how many hours you spend on social media. The behaviors like constantly comparing yourself to other people or being easily distracted are what predict higher mental health impact. You could spend 3 hours watching cooking videos and be fine, but if youre comparing your life to influencers thats different.</p>
+</section>
+
+<section id="limits">
+  <div class="section-number">05 - Limitations</div>
+  <h2>Limitations</h2>
+  <p>481 responses is decent but not huge. More data would help. The target variable is something I made by combining questions and splitting at the median. Its all self reported so people might not be accurate about their usage. The accuracy was about 77% so 1 in 4 predictions were wrong.</p>
+  <div class="highlight-box yellow"><strong>Ethical note</strong>This should never be used to diagnose anyone. Its just patterns in survey data. Real mental health assessment needs actual professionals.</div>
+</section>
+
+<section id="code">
+  <div class="section-number">06 - Code</div>
+  <h2>Code</h2>
+  <p>Ran in Google Colab.</p>
+  <div class="nb-cell"><div class="nb-cell-header">[ 1 ] imports</div><div class="nb-code">import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report, confusion_matrix</div>
+    <div class="nb-explain"><strong>pandas</strong> - for working with data tables. pd is the shortcut<br><strong>numpy</strong> - for math operations. np is the shortcut<br><strong>seaborn, matplotlib</strong> - for making charts<br><strong>train_test_split</strong> - splits data into training and testing sets<br><strong>cross_val_score</strong> - tests a model multiple times on different chunks of data to get a more reliable accuracy<br><strong>StandardScaler</strong> - puts all features on the same scale so no single one dominates<br><strong>LogisticRegression, DecisionTreeClassifier, RandomForestClassifier</strong> - the 3 models i tried<br><strong>classification_report, confusion_matrix</strong> - for seeing how well the model did</div></div>
+
+  <div class="nb-cell"><div class="nb-cell-header">[ 2 ] load and rename</div><div class="nb-code">df = pd.read_csv("smmh.csv")
+
+df.columns = [
+    "Timestamp", "Age", "Gender", "Relationship", "Occupation", "Organization",
+    "Uses_SM", "Platforms", "Avg_Time", "Purposeless", "Distracted_Busy",
+    "Restless", "Easily_Distracted", "Bothered_Worries", "Hard_Concentrate",
+    "Compare_Others", "Feel_Comparisons", "Seek_Validation", "Feel_Depressed",
+    "Interest_Fluctuate", "Sleep_Issues"
+]</div>
+    <div class="nb-explain"><strong>pd.read_csv("smmh.csv")</strong> - loads the csv file into a dataframe (table). saved it as df<br><br><strong>df.columns = [...]</strong> - the original column names were the full survey questions which made the code impossible to read. like "1. What is your age?" became just "Age" and "8. What is the average time you spend on social media every day?" became "Avg_Time". 21 columns total</div></div>
+
+  <div class="nb-cell"><div class="nb-cell-header">[ 3 ] check and clean</div><div class="nb-code">df.isnull().sum()
+
+df = df.drop(columns=["Timestamp", "Uses_SM"])
+df = df.dropna()
+
+time_map = {
+    "Less than an Hour": 0.5, "Between 1 and 2 hours": 1.5,
+    "Between 2 and 3 hours": 2.5, "Between 3 and 4 hours": 3.5,
+    "Between 4 and 5 hours": 4.5, "More than 5 hours": 5.5
+}
+df["Avg_Time"] = df["Avg_Time"].map(time_map)
+
+df["Gender"] = df["Gender"].map({"Male": 0, "Female": 1, "Nonbinary": 2, "Transgender": 2})
+
+df["Num_Platforms"] = df["Platforms"].str.split(",").str.len()
+
+df = df.drop(columns=["Platforms", "Organization", "Relationship", "Occupation"])
+df = df.dropna()</div>
+    <div class="nb-explain"><strong>df.isnull().sum()</strong> - checks how many empty cells per column. Organization had 30 missing<br><br><strong>df.drop(columns=[...])</strong> - removes columns i dont need. Timestamp is just when they took the survey and Uses_SM is useless because everyone said yes<br><br><strong>df.dropna()</strong> - removes any rows with empty cells<br><br><strong>time_map</strong> - the Avg_Time column had text like "Between 2 and 3 hours" which a model cant read. this dictionary maps each text answer to a number. then <strong>.map(time_map)</strong> replaces every text value with its number<br><br><strong>df["Gender"].map({...})</strong> - same idea, turns Male/Female/Nonbinary into 0/1/2 so the model can use it<br><br><strong>df["Platforms"].str.split(",").str.len()</strong> - the Platforms column had stuff like "Facebook, Instagram, YouTube". str.split(",") breaks it apart at each comma, then str.len() counts how many pieces there are. so if someone used 3 platforms it becomes 3<br><br><strong>df.drop(columns=[...])</strong> - drops the remaining text columns like Platforms and Organization since the model only takes numbers<br><br><strong>df.dropna()</strong> - one more cleanup to catch any rows that got NaN from the mapping</div></div>
+
+  <div class="nb-cell"><div class="nb-cell-header">[ 4 ] target variable</div><div class="nb-code">df["MH_Score"] = (df["Bothered_Worries"] + df["Hard_Concentrate"] +
+                  df["Feel_Depressed"] + df["Interest_Fluctuate"] + df["Sleep_Issues"])
+
+median_score = df["MH_Score"].median()
+df["High_Impact"] = (df["MH_Score"] > median_score).astype(int)</div>
+    <div class="nb-explain"><strong>df["MH_Score"]</strong> - i created a new column by adding together 5 mental health questions. each one is on a 1 to 5 scale so the combined score ranges from 5 to 25. higher score = more mental health issues reported<br><br><strong>.median()</strong> - finds the middle value of all the scores. came out to 17.0<br><br><strong>(df["MH_Score"] > median_score)</strong> - checks each row: is their score above 17? gives True or False<br><br><strong>.astype(int)</strong> - turns True into 1 and False into 0<br><br>so now every person is labeled either 1 (high impact) or 0 (low impact). this is what the models will try to predict. ended up with 243 low and 203 high</div></div>
+
+  <div class="nb-cell"><div class="nb-cell-header">[ 5 ] split and scale</div><div class="nb-code">feature_cols = ["Age", "Gender", "Avg_Time", "Num_Platforms", "Purposeless",
+                "Distracted_Busy", "Restless", "Easily_Distracted",
+                "Compare_Others", "Feel_Comparisons", "Seek_Validation"]
+
+X = df[feature_cols]
+y = df["High_Impact"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y)
+
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)</div>
+    <div class="nb-explain"><strong>feature_cols</strong> - the 11 columns the model gets to look at when making predictions. i left out the 5 questions that went into MH_Score since those are basically the answer<br><br><strong>X</strong> - the features (inputs). what the model sees<br><strong>y</strong> - the target (output). what the model tries to predict<br><br><strong>train_test_split(X, y, test_size=0.2, ...)</strong> - splits data into 80% training and 20% testing. the model learns on training data and gets tested on data it hasnt seen<br><strong>random_state=42</strong> - makes the split reproducible. same split every time you run it<br><strong>stratify=y</strong> - makes sure both sets have the same ratio of high vs low impact. without this the test set could randomly end up mostly one class<br><br><strong>StandardScaler()</strong> - scales all features to have mean 0 and standard deviation 1. important because Age goes up to 30+ but survey questions only go 1 to 5. without scaling the model might think Age matters more just because the numbers are bigger<br><strong>fit_transform</strong> - calculates the mean/std from training data and scales it<br><strong>transform</strong> - uses the same mean/std to scale test data. you dont fit on test data because that would be data leakage</div></div>
+
+  <div class="nb-cell"><div class="nb-cell-header">[ 6 ] 3 models with cross validation</div><div class="nb-code">lr = LogisticRegression(random_state=42, max_iter=1000)
+lr_scores = cross_val_score(lr, X_train_scaled, y_train, cv=5, scoring="accuracy")
+
+dt = DecisionTreeClassifier(random_state=42, max_depth=5)
+dt_scores = cross_val_score(dt, X_train_scaled, y_train, cv=5, scoring="accuracy")
+
+rf = RandomForestClassifier(random_state=42, n_estimators=100, max_depth=5)
+rf_scores = cross_val_score(rf, X_train_scaled, y_train, cv=5, scoring="accuracy")</div>
+    <div class="nb-explain"><strong>LogisticRegression</strong> - the simplest model. tries to draw a line between the two classes. max_iter=1000 gives it enough tries to find the best line<br><br><strong>DecisionTreeClassifier</strong> - makes a series of yes/no decisions like "is Easily_Distracted > 3? if yes go left, if no go right." max_depth=5 limits how deep the tree goes so it doesnt memorize the training data<br><br><strong>RandomForestClassifier</strong> - builds 100 separate decision trees (n_estimators=100) and takes the average of all their predictions. usually more accurate because the errors from individual trees cancel out<br><br><strong>cross_val_score(model, X, y, cv=5)</strong> - this is the important part. instead of testing once it splits the training data into 5 pieces, trains on 4 pieces and tests on the 5th, then rotates which piece is the test. does this 5 times and averages the accuracy. gives a more reliable number than just testing once<br><br>results: LR got 0.7697, DT got 0.7360, RF got 0.7557</div></div>
+
+  <div class="nb-cell"><div class="nb-cell-header">[ 7 ] evaluate best model</div><div class="nb-code">lr.fit(X_train_scaled, y_train)
+lr_pred = lr.predict(X_test_scaled)
+
+print(classification_report(y_test, lr_pred, target_names=["Low Impact", "High Impact"]))</div>
+    <div class="nb-explain"><strong>lr.fit(X_train_scaled, y_train)</strong> - trains logistic regression on ALL the training data (not just 4/5 like cross validation did)<br><br><strong>lr.predict(X_test_scaled)</strong> - feeds the test data in and gets predictions. for each person it outputs 0 or 1<br><br><strong>classification_report</strong> - shows how well the model did broken down by class:<br>- precision: of the ones it predicted as high impact, what % actually were?<br>- recall: of the ones that actually are high impact, what % did it catch?<br>- f1-score: combines precision and recall into one number<br><br>test accuracy came out to 76.67% which is close to the 77% from cross validation, meaning the model didnt overfit</div></div>
+
+  <div class="nb-cell"><div class="nb-cell-header">[ 8 ] confusion matrix and feature importance</div><div class="nb-code">cm = confusion_matrix(y_test, lr_pred)
+sns.heatmap(cm, annot=True, fmt="d", cmap="Blues",
+            xticklabels=["Low", "High"], yticklabels=["Low", "High"])
+
+rf.fit(X_train_scaled, y_train)
+feat_imp = pd.DataFrame({"Feature": feature_cols, "Importance": rf.feature_importances_})
+feat_imp = feat_imp.sort_values("Importance", ascending=False)</div>
+    <div class="nb-explain"><strong>confusion_matrix(y_test, lr_pred)</strong> - makes a 2x2 grid showing: how many low impact it guessed right (40), how many it wrongly called high (9), how many high impact it missed (12), and how many high it got right (29)<br><br><strong>sns.heatmap</strong> - draws it as a colored grid. annot=True puts numbers in the cells. fmt="d" formats as whole numbers<br><br><strong>rf.fit(...)</strong> - trained the random forest too because it has feature_importances_ built in which logistic regression doesnt have in an easy to use format<br><br><strong>rf.feature_importances_</strong> - gives a number for each feature showing how much the model relied on it. higher = more important<br><br>top features were Easily_Distracted (0.27) and Compare_Others (0.13). this means being easily distracted and comparing yourself to others on social media were the biggest predictors of mental health impact. stuff like gender and number of platforms barely mattered</div></div>
+</section>
+
+<section id="refs">
+  <div class="section-number">07 - References</div>
+  <h2>References and AI Use</h2>
+  <ul class="ref-list">
+    <li><strong>Dataset:</strong> Souvik Ahmed, "Social Media and Mental Health" on Kaggle (<a href="https://www.kaggle.com/datasets/souvikahmed071/social-media-and-mental-health">link</a>).</li>
+    <li><strong>Tools:</strong> Python 3, pandas, numpy, matplotlib, seaborn, scikit-learn. Ran in Google Colab.</li>
+    <li><strong>scikit-learn docs:</strong> <a href="https://scikit-learn.org/stable/user_guide.html">scikit-learn.org</a></li>
+    <li><strong>pandas docs:</strong> <a href="https://pandas.pydata.org/docs/">pandas.pydata.org/docs</a></li>
+    <li><strong>Course:</strong> DTSC 2301 lectures and demos.</li>
+  </ul>
+  <div class="highlight-box purple">
+    <strong>AI Transparency</strong>
+    <p style="margin-top:8px;">I used Claude (claude.ai) to help me debug errors and clean up wording. I referenced the scikit-learn and pandas docs for the code. The analysis decisions, model choices, and interpretations are mine. Claude also helped with the HTML/CSS for the website layout.</p>
+  </div>
+</section>
+
+</div>
+<footer>HC's Portfolio - DTSC 2301 - Haoran Chen - Spring 2026</footer>
+</body>
+</html>
