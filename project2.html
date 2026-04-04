@@ -73,9 +73,9 @@
 <section id="problem">
   <div class="section-number">01 - Problem</div>
   <h2>Why This Matters</h2>
-  <p>Social media is a huge part of most college students lives. People my age spend hours scrolling through Instagram, TikTok, Twitter every day and most of us dont really think about what thats doing to us mentally.</p>
+  <p>Social media is a huge part of most college students lives. People my age spend hours scrolling through Instagram, TikTok, Twitter every day and most of us dont really stop and think about what thats actually doing to us mentally.</p>
   <p>This actually just became a huge deal in the news. On March 25, 2026 a jury in Los Angeles found Meta and Google liable in a lawsuit brought by a 20 year old woman named Kaley who said she got hooked on social media as a kid and it caused her anxiety, body dysmorphia, and suicidal thoughts. She started watching YouTube at age 6 and had Instagram by age 9. The jury ordered the companies to pay $6 million in total damages. It was the first trial of its kind and theres over 1,500 similar cases waiting. People are comparing it to the Big Tobacco lawsuits from the 90s.</p>
-  <p>That case is basically about what I wanted to look at with data. Can you predict whether someone is going to have higher mental health issues based on how they use social media. And which parts of social media usage matter the most.</p>
+  <p>That case is basically what I wanted to look at with data. Like can you actually predict whether someone is going to have higher mental health issues based on how they use social media and which parts of it matter the most.</p>
   <div class="highlight-box"><strong>Research Question</strong>Can we predict whether a person experiences high mental health impact based on their social media usage patterns? And which behaviors are the strongest predictors?</div>
 </section>
 
@@ -89,8 +89,8 @@
     <div class="data-card"><div class="label">Source</div><div class="value">Kaggle</div></div>
     <div class="data-card"><div class="label">After cleaning</div><div class="value">446</div></div>
   </div>
-  <p>The survey covered demographics (age, gender), social media habits (platforms, time spent, purposeless scrolling), and mental health questions on a 1 to 5 scale (distraction, worry, depression, sleep issues, comparing yourself to others).</p>
-  <p>I created the target variable by combining 5 mental health questions into a score and splitting at the median. Above median = high impact (1), below = low impact (0). Ended up with 243 low and 203 high.</p>
+  <p>The survey covered demographics like age and gender, social media habits like what platforms they use and how much time they spend, and then mental health questions on a 1 to 5 scale about things like distraction, worry, depression, sleep issues, and comparing yourself to others.</p>
+  <p>I created the target variable myself by combining 5 of the mental health questions into a score and splitting at the median. Above median = high impact (1), below = low impact (0). Ended up with 243 low and 203 high which is pretty balanced.</p>
   <div class="highlight-box"><strong>Preprocessing</strong>
     Dropped timestamp and useless columns. Converted time from text to numbers. Encoded gender as numbers. Counted platforms per person. Scaled features with StandardScaler. Split 80/20 with stratification.
   </div>
@@ -99,11 +99,11 @@
 <section id="models">
   <div class="section-number">03 - Models</div>
   <h2>Three Models Compared</h2>
-  <p>Tried three models with 5-fold cross validation on the training data.</p>
+  <p>I tried three diffrent models and compared them with 5-fold cross validation on the training data.</p>
   <div class="model-card"><h3>Logistic Regression</h3><p>CV Accuracy: <span class="score">0.7697</span> (best)</p></div>
   <div class="model-card"><h3>Decision Tree (depth 5)</h3><p>CV Accuracy: <span class="score">0.7360</span></p></div>
   <div class="model-card"><h3>Random Forest (100 trees)</h3><p>CV Accuracy: <span class="score">0.7557</span></p></div>
-  <p>Logistic Regression did the best at 77%. Test accuracy was 76.67% which is close to the CV score so it didnt overfit.</p>
+  <p>Logistic Regression actually did the best at 77% which I wasnt expecting. Test accuracy was 76.67% which is pretty close to the CV score so it didnt overfit which is good.</p>
   <div class="viz-block"><h3>Model Comparison</h3><img src="images_p2/fig4_model_comparison.png" alt="Model comparison."></div>
 </section>
 
@@ -115,13 +115,13 @@
   <div class="viz-block"><h3>Correlation Matrix</h3><img src="images_p2/fig3_correlation.png" alt="Correlation."><div class="finding">Comparing yourself to others is tied to seeking validation and feeling depressed.</div></div>
   <div class="viz-block"><h3>Confusion Matrix</h3><img src="images_p2/fig5_confusion_matrix.png" alt="Confusion matrix."><div class="finding">Got 40/49 low impact right and 29/41 high impact right.</div></div>
   <div class="viz-block"><h3>Feature Importance</h3><img src="images_p2/fig6_feature_importance.png" alt="Feature importance."><div class="finding">Easily_Distracted and Compare_Others were the top predictors. Being easily distracted and comparing yourself to others matters way more than just time spent.</div></div>
-  <p>The feature importance was the most interesting part. Its not about how many hours you spend on social media. The behaviors like constantly comparing yourself to other people or being easily distracted are what predict higher mental health impact. You could spend 3 hours watching cooking videos and be fine, but if youre comparing your life to influencers thats different.</p>
+  <p>The feature importance was probably the most intresting part for me. Its not really about how many hours you spend on social media, its more about what your doing while your on there. Like constantly comparing yourself to other people or being easily distracted are what actually predict higher mental health impact. You could spend 3 hours watching cooking videos and be totally fine but if your comparing your life to influencers thats a whole diffrent thing.</p>
 </section>
 
 <section id="limits">
   <div class="section-number">05 - Limitations</div>
   <h2>Limitations</h2>
-  <p>481 responses is decent but not huge. More data would help. The target variable is something I made by combining questions and splitting at the median. Its all self reported so people might not be accurate about their usage. The accuracy was about 77% so 1 in 4 predictions were wrong.</p>
+  <p>481 responses is decent but not huge, more data would definitly help. The target variable is something I came up with by combining questions and splitting at the median so theres no garuntee thats the best way to do it. Its also all self reported so people might not be totally accurate about how much they actually use social media. The accuracy was about 77% which means about 1 in 4 predictions were wrong so theres room for improvment.</p>
   <div class="highlight-box yellow"><strong>Ethical note</strong>This should never be used to diagnose anyone. Its just patterns in survey data. Real mental health assessment needs actual professionals.</div>
 </section>
 
@@ -139,7 +139,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix</div>
-    <div class="nb-explain"><strong>pandas</strong> for data tables, <strong>numpy</strong> for math, <strong>seaborn</strong> and <strong>matplotlib</strong> for charts<br><br><strong>train_test_split</strong> splits data into training and testing<br><strong>cross_val_score</strong> tests a model multiple times on different chunks of data<br><strong>StandardScaler</strong> puts all features on the same scale<br><strong>LogisticRegression, DecisionTreeClassifier, RandomForestClassifier</strong> are the 3 models<br><strong>classification_report</strong> and <strong>confusion_matrix</strong> show how well the model did</div></div>
+    <div class="nb-explain">pandas for data, numpy for math, seaborn and matplotlib for charts. the sklearn imports are for the machine learning stuff (splitting data, scaling, the 3 models, and evaluation metrics)</div></div>
 
   <div class="nb-cell"><div class="nb-cell-header">[ 2 ] load and rename</div><div class="nb-code">df = pd.read_csv("smmh.csv")
 
@@ -177,7 +177,7 @@ df = df.dropna()</div>
 
 median_score = df["MH_Score"].median()
 df["High_Impact"] = (df["MH_Score"] > median_score).astype(int)</div>
-    <div class="nb-explain"><strong>MH_Score</strong> adds 5 mental health questions together into one score. each question is 1 to 5 so the total goes from 5 to 25<br><br><strong>.median()</strong> finds the middle value. came out to 17<br><br><strong>> median_score</strong> checks if each persons score is above 17. gives True or False<br><br><strong>.astype(int)</strong> turns True into 1 (high impact) and False into 0 (low impact). ended up with 243 low and 203 high</div></div>
+    <div class="nb-explain">added 5 mental health questions into one score. median was 17 so anyone above that is high impact (1) and below is low (0). astype(int) just converts the True/False to 1/0</div></div>
 
   <div class="nb-cell"><div class="nb-cell-header">[ 5 ] split and scale</div><div class="nb-code">feature_cols = ["Age", "Gender", "Avg_Time", "Num_Platforms", "Purposeless",
                 "Distracted_Busy", "Restless", "Easily_Distracted",
@@ -208,7 +208,7 @@ rf_scores = cross_val_score(rf, X_train_scaled, y_train, cv=5, scoring="accuracy
 lr_pred = lr.predict(X_test_scaled)
 
 print(classification_report(y_test, lr_pred, target_names=["Low Impact", "High Impact"]))</div>
-    <div class="nb-explain"><strong>.fit()</strong> trains the model on all training data<br><strong>.predict()</strong> feeds in test data and gets predictions (0 or 1 for each person)<br><br><strong>classification_report</strong> shows precision (of the ones it called high, how many actually were), recall (of the ones that are high, how many did it catch), and f1 (combines both)<br><br>test accuracy was 76.67%, close to the 77% CV score so it didnt overfit</div></div>
+    <div class="nb-explain">.fit() trains it, .predict() gets predictions on the test set. classification_report shows precision recall and f1 for each class. got 76.67% on the test set</div></div>
 
   <div class="nb-cell"><div class="nb-cell-header">[ 8 ] confusion matrix and feature importance</div><div class="nb-code">cm = confusion_matrix(y_test, lr_pred)
 sns.heatmap(cm, annot=True, fmt="d", cmap="Blues",
@@ -217,7 +217,7 @@ sns.heatmap(cm, annot=True, fmt="d", cmap="Blues",
 rf.fit(X_train_scaled, y_train)
 feat_imp = pd.DataFrame({"Feature": feature_cols, "Importance": rf.feature_importances_})
 feat_imp = feat_imp.sort_values("Importance", ascending=False)</div>
-    <div class="nb-explain"><strong>confusion_matrix</strong> makes a 2x2 grid. got 40 low right, 29 high right, missed 12 high and 9 low<br><br><strong>sns.heatmap</strong> draws it as a colored grid. annot=True puts numbers in the cells<br><br><strong>rf.feature_importances_</strong> shows which features the model relied on most. used random forest for this since logistic regression doesnt have it built in the same way<br><br>top predictors were Easily_Distracted (0.27) and Compare_Others (0.13)</div></div>
+    <div class="nb-explain">confusion matrix shows what it got right and wrong. sns.heatmap just visualizes it<br><br>used random forest for feature_importances_ since LR doesnt have it the same way. top features were Easily_Distracted and Compare_Others</div></div>
 </section>
 
 <section id="refs">
